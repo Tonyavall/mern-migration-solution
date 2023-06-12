@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/server/config/connection";
 import { User } from "@/server/models";
+import { signToken } from "@/server/utils/auth";
 
 export async function POST(req) {
     await connectDB();
@@ -19,7 +20,7 @@ export async function POST(req) {
         throw new Error('Incorrect credentials');
     }
 
-    const token = signToken(user);
+    const token = await signToken(user);
     response.cookies.set('token', token);
 
     const response = NextResponse.json({ user, token });

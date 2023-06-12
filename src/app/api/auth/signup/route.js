@@ -9,7 +9,7 @@ export async function POST(req) {
     const reqBody = await req.json()
 
     const user = await User.create(reqBody);
-    const token = signToken(user);
+    const token = await signToken(user);
 
     const response = NextResponse.json({ token, user });
 

@@ -1,9 +1,6 @@
 const { User } = require('../models');
-const { signToken } = require('../utils/auth');
 const connectDB = require('../config/connection')
 import { GraphQLError } from 'graphql';
-
-const { NextResponse } = require('next/server');
 
 const resolvers = {
   Query: {
