@@ -2,10 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { useMutation } from '@apollo/client';
-
-import Auth from '../_utils/auth';
-
 const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({
@@ -45,7 +41,7 @@ const SignupForm = () => {
 
       const data = await res.json();
 
-      Auth.login(data.token);
+      window.location.assign('/') // i want to refresh the state of the app, otherwise use useRouter
     } catch (err) {
       console.error(err);
     }

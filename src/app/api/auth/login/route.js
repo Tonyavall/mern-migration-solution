@@ -6,7 +6,9 @@ import { signToken } from "@/server/utils/auth";
 export async function POST(req) {
     await connectDB();
 
-    const { email, password } = req.body;
+    const { email, password } = await req.json();
+
+    console.log(email)
 
     const user = await User.findOne({ email });
 
@@ -21,9 +23,10 @@ export async function POST(req) {
     }
 
     const token = await signToken(user);
-    response.cookies.set('token', token);
 
     const response = NextResponse.json({ user, token });
+
+    response.cookies.set('token', token);
 
     return response;
 }

@@ -13,8 +13,6 @@ import { QUERY_ME } from '../_utils/queries';
 import { REMOVE_BOOK } from '../_utils/mutations';
 import { removeBookId } from '../_utils/localStorage';
 
-import Auth from '../_utils/auth';
-
 const SavedBooks = () => {
   const { loading, data } = useQuery(QUERY_ME);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);

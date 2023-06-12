@@ -6,9 +6,9 @@ const secret = new TextEncoder().encode(
 const expiration = '2h';
 const alg = 'HS256';
 
-const signToken = async function (payload) { // { username, email, _id }
+const signToken = async function ({ username, email, _id }) { // 
     try {
-        const token = await new SignJWT({ ...payload })
+        const token = await new SignJWT({ username, email, _id  })
             .setProtectedHeader({ alg })
             .setIssuedAt()
             .setIssuer('thebestTAever')

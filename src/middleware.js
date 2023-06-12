@@ -13,6 +13,11 @@ export async function middleware(nextRequest) {
   }
 
   const payload = await verifyToken(token);
+  if (!payload) { // when payload is null, token is invalid
+    response.cookies.delete('token'); // delete cookie from the response
+
+    // possibly reroute to login page.
+  }
 
   nextRequest.user = payload;
 

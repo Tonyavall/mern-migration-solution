@@ -3,10 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { useMutation } from '@apollo/client';
-
-import Auth from '../_utils/auth';
-
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
@@ -39,7 +35,7 @@ const LoginForm = () => {
 
       const data = await res.json();
       
-      Auth.login(data.login.token);
+      window.location.assign('/') // refresh app state, otherwise use useRouter from next/navigation
     } catch (e) {
       console.error(e);
     }

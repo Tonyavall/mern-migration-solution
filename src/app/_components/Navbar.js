@@ -4,12 +4,22 @@ import Link from 'next/link';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
+import { useRouter } from 'next/navigation';
 
-import Auth from '../_utils/auth';
-
-const AppNavbar = () => {
+const AppNavbar = ({ loggedIn = false }) => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout')
+
+      window.location.assign('/'); // refresh app state
+    } catch (error) {
+      console.log("error when logging out")
+    }
+  }
 
   return (
     <>
@@ -25,12 +35,12 @@ const AppNavbar = () => {
                 Search For Books
               </Nav.Link>
               {/* if user is logged in show saved books and logout */}
-              {Auth.loggedIn() ? (
+              {loggedIn ? (
                 <>
                   <Nav.Link as={Link} href='/saved'>
                     See Your Books
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
                 </>
               ) : (
                 <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
